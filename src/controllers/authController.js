@@ -3,24 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {registerValidation, loginValidation} = require('../models/shared/validation-schema');
-const validation = require('../models/shared/verify-token');
 
 const User = require('../models/user');
-
-router.get('/auth/user', validation, async (req, res) => {
-    const id = req.user._id;
-
-    try {
-        const user = await User.findById({_id: id});
-        res.json({
-            success: true,
-            message: 'Operation success',
-            data: user
-        })
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
 
 router.post('/auth/register', async (req, res) => {
     const {error} = registerValidation(req.body);

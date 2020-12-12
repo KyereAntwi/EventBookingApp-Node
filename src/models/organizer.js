@@ -25,6 +25,14 @@ const OrganizerSchema = new schema({
     admin: {
         type: String,
         required: true,
+    },
+
+    logoUrl: {
+        type: String
+    },
+
+    bannerUrl: {
+        type: String
     }
 });
 

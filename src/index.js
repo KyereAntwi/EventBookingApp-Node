@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 const eventRoutes = require('./controllers/eventControllers');
 const organizationsRoutes = require('./controllers/organizationController');
 const authRoutes = require('./controllers/authController');
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/event-booking-node',
 
 // middlewares
 app.use(express.json());
+app.use(fileUpload());
  
 // controller routes
 app.use('/api/v1', eventRoutes);

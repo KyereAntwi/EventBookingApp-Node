@@ -21,5 +21,15 @@ const loginValidation = (data) => {
     return validationSchema.validate(data);
 }
 
+const isFileImage = (file) => {
+    const acceptedImageTypes = ['image/jpeg', 'image/png'];
+    file.name = `${file.name}${new Date().toISOString()}.png`;
+    return {
+        isImage: file && acceptedImageTypes.includes(file['type']),
+        name: file.name
+    }
+}
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.isFileImage = isFileImage;

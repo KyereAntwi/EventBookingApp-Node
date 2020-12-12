@@ -1,5 +1,6 @@
 const express = require('express');
 const verify = require('../models/shared/verify-token');
+const {isFileImage} = require('../models/shared/validation-schema');
 
 const Organizer = require('../models/organizer');
 const router = express.Router();
@@ -176,6 +177,126 @@ router.delete('/organizations/:id', verify, async (req, res) => {
             message: error.message,
             data : null
         })
+    }
+});
+
+router.post('/organizations/updatelogo/:id', verify, async (req, res) => {
+    if(req.files === null){
+        res.status(400).json({
+            success: false,
+            message: 'No image was uploaded',
+            data: null
+        })
+    }
+
+    if(req.params.id === undefined){
+        res.status(400).json({
+            success: false,
+            message: 'Id for organization was not provided',
+            data: null
+        })
+    }
+
+    const file = req.files.file;
+    const {isImage, name} = isFileImage(file);
+
+    if(!isImage){
+        res.status(400).json({
+            success: false,
+            message: 'Uploaded file must be an image with a png or jpeg extension',
+            data: null
+        })
+    }
+
+    const filePath = `${__dirname}/uploads/${name}`;
+    file.mv(filePath, err => {
+        console.log(err);
+        return res.status(500).send(err);
+    })
+
+    try {
+        const selectedOrgainizer = await Organizer.findById({_id: req.params.id});
+
+        if(!selectedOrgainizer) {
+            res.status(404).json({
+                success: false,
+                message: 'The organization does not exist',
+                data: null
+            })
+        }
+
+        selectedOrgainizer.logoUrl = filePath;
+        await Organizer.findOneAndUpdate({_id: req.params.id}, selectedOrgainizer);
+        res.json({
+            success: true,
+            message: 'Image update was successful',
+            data: {
+                fileName: name,
+                filePath: filePath
+            }
+        })
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+});
+
+router.post('/organizations/updatebanner/:id', verify, async (req, res) => {
+    if(req.files === null){
+        res.status(400).json({
+            success: false,
+            message: 'No image was uploaded',
+            data: null
+        })
+    }
+
+    if(req.params.id === undefined){
+        res.status(400).json({
+            success: false,
+            message: 'Id for organization was not provided',
+            data: null
+        })
+    }
+
+    const file = req.files.file;
+    const {isImage, name} = isFileImage(file);
+
+    if(!isImage){
+        res.status(400).json({
+            success: false,
+            message: 'Uploaded file must be an image with a png or jpeg extension',
+            data: null
+        })
+    }
+
+    const filePath = `${__dirname}/uploads/${name}`;
+    file.mv(filePath, err => {
+        console.log(err);
+        return res.status(500).send(err);
+    })
+
+    try {
+        const selectedOrgainizer = await Organizer.findById({_id: req.params.id});
+
+        if(!selectedOrgainizer) {
+            res.status(404).json({
+                success: false,
+                message: 'The organization does not exist',
+                data: null
+            })
+        }
+
+        selectedOrgainizer.bannerUrl = filePath;
+        await Organizer.findOneAndUpdate({_id: req.params.id}, selectedOrgainizer);
+        res.json({
+            success: true,
+            message: 'Banner update was successful',
+            data: {
+                fileName: name,
+                filePath: filePath
+            }
+        })
+    } catch (error) {
+        res.status(500).send(error.message)
     }
 });
 

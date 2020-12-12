@@ -24,12 +24,32 @@ const UserSchema = new schema({
     },
 
     createdAt: {
-        type: Date,
+        type: String,
         default: new Date().toISOString()
     },
 
     imageUrl: {
         type: String
+    },
+
+    bannerUrl: {
+        type: String
+    },
+
+    dateOfBirth: {
+        type: String,
+        default: new Date().toISOString()
+    },
+
+    primaryContact: {
+        type: String,
+        maxlength: 15,
+        minlength: 15
+    },
+
+    nationality: {
+        type: String,
+        default: 'Ghanaian'
     }
 });
 
