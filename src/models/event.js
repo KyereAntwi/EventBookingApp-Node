@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const AddressSchema = require('./shared/address-schema');
 const GeoSchema = require('./shared/geo-schema');
-const WikiSchema = require('./shared/event-wikis-schema');
-const TicketSchema = require('./shared/ticket-schema');
 const schema = mongoose.Schema;
 
 const EventSchema = new schema({
@@ -10,7 +8,7 @@ const EventSchema = new schema({
         type: String,
         required: [true, 'Theme is required'],
         maxlength: [100, 'Theme must be at most 100 characters'],
-        minlength: [2, 'Theme must be atleast 2 characters']
+        minlength: [2, 'Theme must be at least 2 characters']
     },
 
     description: {
@@ -65,10 +63,12 @@ const EventSchema = new schema({
         type: [String]
     },
 
-    tickets: [TicketSchema],
+    ticketAmount: {
+        type: Number
+    },
 
-    geometry: GeoSchema, // add geolocation  
-    wikis: [WikiSchema], 
+    geometry: GeoSchema, // add geolocation
+
     address: AddressSchema
 });
 

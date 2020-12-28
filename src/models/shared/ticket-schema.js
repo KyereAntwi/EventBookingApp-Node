@@ -3,7 +3,8 @@ const schema = mongoose.Schema;
 
 const TicketSchema = new schema({
     user: {
-        type: String
+        type: String,
+        required: true
     },
 
     amountPaid: {
@@ -13,7 +14,13 @@ const TicketSchema = new schema({
     paidAt: {
         type: String,
         default: new Date().toISOString()
+    },
+
+    eventId: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = TicketSchema;
+const Ticket = mongoose.model('ticket', TicketSchema);
+module.exports = Ticket;

@@ -15,7 +15,13 @@ const EventWiki = new schema({
     message: {
         type: String,
         required: true
+    },
+
+    eventId: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = EventWiki;
+const Wiki = mongoose.model('wiki', EventWiki);
+module.exports = Wiki;

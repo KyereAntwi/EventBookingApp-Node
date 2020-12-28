@@ -2,9 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
+
 const eventRoutes = require("./controllers/eventControllers");
 const organizationsRoutes = require("./controllers/organizationController");
 const authRoutes = require("./controllers/authController");
+const tickeRoutes = require('./controllers/ticketController');
 
 const app = express();
 dotenv.config();
@@ -15,11 +17,12 @@ mongoose.connect(
   () => console.log("Mongo db is connected")
 );
 
-// middlewares
+// middle wares
 app.use(express.json());
 app.use(fileUpload());
 
 // controller routes
+app.use('/api/v1', tickeRoutes);
 app.use("/api/v1", eventRoutes);
 app.use("/api/v1", organizationsRoutes);
 app.use("/api/v1", authRoutes);

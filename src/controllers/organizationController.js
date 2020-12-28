@@ -49,11 +49,11 @@ router.get('/organizations/:id', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Organization search was successfull',
+            message: 'Organization search was successful',
             data: organizaiton
         })
     } catch (error) {
-        
+        res.status(500).send('There was a problem fetching data');
     }
 });
 
@@ -180,7 +180,7 @@ router.delete('/organizations/:id', verify, async (req, res) => {
     }
 });
 
-router.post('/organizations/updatelogo/:id', verify, async (req, res) => {
+router.put('/organizations/updatelogo/:id', verify, async (req, res) => {
     if(req.files === null){
         res.status(400).json({
             success: false,
