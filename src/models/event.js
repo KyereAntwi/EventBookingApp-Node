@@ -63,6 +63,10 @@ const EventSchema = new schema({
         type: [String]
     },
 
+    rsvps: {
+        type: [String]
+    }, // list of user ids who are employees  for the organizing company
+
     ticketAmount: {
         type: Number
     },

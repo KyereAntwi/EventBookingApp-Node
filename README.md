@@ -17,6 +17,21 @@ For Users
 8. primaryContact
 9. nationality
 
+For Organization or event organizers
+1. name
+2. address : Address Model
+3. website
+4. createdAt
+5. admin : userId
+6. logoUrl
+7. bannerUrl
+
+For Address
+1. locality
+2. region
+3. country
+4. digitalAddress
+
 # BackEnd - Restful Api Routes
 For authentication
 1. /api/v1/auth/register - POST

@@ -27,6 +27,10 @@ const OrganizerSchema = new schema({
         required: true,
     },
 
+    employees: {
+        type: [String]
+    }, // list of users who work with the organizing company
+
     logoUrl: {
         type: String
     },

@@ -180,7 +180,7 @@ router.delete('/organizations/:id', verify, async (req, res) => {
     }
 });
 
-router.put('/organizations/updatelogo/:id', verify, async (req, res) => {
+router.put('/organizations/update-logo/:id', verify, async (req, res) => {
     if(req.files === null){
         res.status(400).json({
             success: false,
@@ -240,7 +240,7 @@ router.put('/organizations/updatelogo/:id', verify, async (req, res) => {
     }
 });
 
-router.post('/organizations/updatebanner/:id', verify, async (req, res) => {
+router.post('/organizations/update-banner/:id', verify, async (req, res) => {
     if(req.files === null){
         res.status(400).json({
             success: false,
@@ -297,6 +297,31 @@ router.post('/organizations/updatebanner/:id', verify, async (req, res) => {
         })
     } catch (error) {
         res.status(500).send(error.message)
+    }
+});
+
+router.put('/organizations/update-employees/:id', verify, async (req, res) => {
+    if (!req.params.id) res.status(400).send('Organization Id was not provided');
+    const employeesIds = req.body;
+
+    if (employeesIds.length <= 0) res.status(400).send('List of employees were not provided');
+
+    try {
+        const selectedOrganization = Organizer.findById({ _id: req.params.id });
+
+        if (!selectedOrganization) res.status(404).send('Selected organization does not exist');
+
+        selectedOrganization.employees = [...selectedOrganization.employees, employeesIds];
+        const response = await Organizer.findByIdAndUpdate({ _id: req.params.id }, selectedOrganization);
+
+        res.json({
+            success: true,
+            message: 'Employees updated successfully',
+            data: response
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('There was a problem adding employess');
     }
 });
 

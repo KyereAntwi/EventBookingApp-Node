@@ -61,8 +61,8 @@ router.get('/users/:id', validate, async (req, res) => {
     }
 });
 
-router.put('/users/updateimage/:id', validate, (req, res) => {});
-router.put('/users/updatebanner/:id', validate, (req, res) => {});
+router.put('/users/update-image/:id', validate, (req, res) => {});
+router.put('/users/update-banner/:id', validate, (req, res) => {});
 
 router.put('/users/:id', validate, async (req, res) => {
     if(!req.params.id) {
@@ -121,3 +121,5 @@ router.delete('/users/:id', validate, async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
+module.exports = router;

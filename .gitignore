@@ -1,2 +1,4 @@
 node_modules/
 .vscode
+.vs
+.vs/BackEnd_Node/config/

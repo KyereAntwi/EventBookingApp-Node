@@ -1,30 +1,27 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const TicketSchema = new schema({
+const CommentSchema = new schema({
     user: {
         type: String,
         required: true
     },
 
-    amountPaid: {
-        type: Number
-    },
-
-    paidAt: {
+    createdAt: {
         type: String,
         default: new Date().toISOString()
     },
 
-    token: {
-        type: String
+    message: {
+        type: String,
+        required: true
     },
 
-    eventId: {
+    wikiId: {
         type: String,
         required: true
     }
 });
 
-const Ticket = mongoose.model('ticket', TicketSchema);
-module.exports = Ticket;
+const WikiComment = mongoose.model('wikiComment', CommentSchema);
+module.exports = WikiComment;

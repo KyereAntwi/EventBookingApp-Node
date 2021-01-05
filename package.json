@@ -23,6 +23,7 @@
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.6",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "socket.io": "^3.0.4"
   }
 }

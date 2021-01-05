@@ -61,8 +61,14 @@ router.post('/tickets', verify, async (req, res) => {
         // if event is private then perform external ticket payment here
 
         body.amountPaid = event.ticketAmount;
+
+        // generate ticket token code
+
         const newTicket = new Ticket(body);
         const response = await newTicket.save();
+
+        // send an email to user with ticket and events details for confirmation of success
+
         res.status(201).json({
             success: true,
             message: 'Ticket purchased successfully',
